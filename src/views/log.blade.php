@@ -54,8 +54,15 @@
       <h1><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Laravel Log Viewer</h1>
       <p class="text-muted"><i>by Rap2h</i></p>
       <div class="list-group">
+        @foreach($folders as $key => $folder)
+          <a href="?f={{$key}}" class="list-group-item @if ($current_folder == $folder['path']) llv-active @endif">
+            {{$folder['pathName']}}
+          </a>
+        @endforeach
+      </div>
+      <div class="list-group">
         @foreach($files as $file)
-          <a href="?l={{ base64_encode($file) }}"
+          <a href="?l={{ base64_encode($file) }}&f={{isset($_GET['f'])? $_GET['f'] : ''}}"
              class="list-group-item @if ($current_file == $file) llv-active @endif">
             {{$file}}
           </a>
