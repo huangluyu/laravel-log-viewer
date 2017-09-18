@@ -14,6 +14,31 @@ class LaravelLogViewer
      */
     private static $file;
 
+    private static $filePathArray = [
+        [
+            'pathName' => '直营端后台日志',
+            'path' => 'logs'
+        ],
+        [
+            'pathName' => '直营端日志',
+            'path' => '../../idongpin_mobile/storage/logs'
+        ],
+        [
+            'pathName' => '直营端日志/wechat_pay',
+            'path' => '../../idongpin_mobile/storage/logs/wechat_pay_logs'
+        ],
+        [
+            'pathName' => '直营端日志/wechat_auth',
+            'path' => '../../idongpin_mobile/storage/logs/wechat_auth_logs'
+        ],
+        [
+            'pathName' => '直营端日志/ali_pay',
+            'path' => '../../idongpin_mobile/storage/logs/ali_pay_logs'
+        ]
+    ];
+
+    private static $filePath = 'logs';
+
     private static $levels_classes = [
         'debug' => 'info',
         'info' => 'info',
@@ -75,7 +100,7 @@ class LaravelLogViewer
      */
     public static function pathToLogFile($file)
     {
-        $logsPath = storage_path('logs');
+        $logsPath = storage_path(self::$filePath);
 
         if (app('files')->exists($file)) { // try the absolute path
             return $file;
@@ -162,7 +187,7 @@ class LaravelLogViewer
      */
     public static function getFiles($basename = false)
     {
-        $files = glob(storage_path() . '/logs/*.log');
+        $files = glob(storage_path() . '/' . self::$filePath . '/logs/*.log');
         $files = array_reverse($files);
         $files = array_filter($files, 'is_file');
         if ($basename && is_array($files)) {
@@ -171,5 +196,28 @@ class LaravelLogViewer
             }
         }
         return array_values($files);
+    }
+
+    public static function getFilePath() {
+        return self::$filePath;
+    }
+
+    public static function setFilePath($pathNum = 0)
+    {
+        if(array_key_exists($pathNum, self::$filePathArray)) {
+            self::$filePath = self::$filePathArray[$pathNum]['path'];
+            return true;
+        } else
+            return false;
+    }
+
+    public static function getFilePathArray()
+    {
+        return self::$filePathArray;
+    }
+
+    public static function setFilePathArray($pathArray = array())
+    {
+        self::$filePathArray = $pathArray;
     }
 }
