@@ -1,6 +1,6 @@
 前言
 -----
-从https://github.com/rap2hpoutre/laravel-log-viewer上Fork过来，添加了多文件夹日志读取，适应多文件夹下日志读取的需求，待添加自动读取函数
+从 https://github.com/rap2hpoutre/laravel-log-viewer 上Fork过来，添加了多文件夹日志读取，适应多文件夹下日志读取的需求，待添加自动读取函数
 
 
 Laravel 5 log viewer
